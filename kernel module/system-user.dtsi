@@ -1,0 +1,40 @@
+/include/ "system-conf.dtsi"
+/ {
+	amba {
+		aes: aes@43c00000{
+			compatible = "xlnx,aes-1.00";
+			interrupt-parent = <&intc>;
+			interrupts = <0 29 1>;
+			reg = <0x43c00000 0x1000>;
+		};
+		des: des@43c10000{
+			compatible = "xlnx,des-1.00";
+			reg = <0x43c10000 0x1000>;
+		};
+		gcd: gcd@43c20000{
+			compatible = "xlnx,gcd-1.00";
+			reg = <0x43c20000 0x1000>;
+		};
+	};
+
+        usb_phy0: phy0 {
+                compatible = "ulpi-phy";
+                #phy-cells = <0>;
+                reg = <0xe0002000 0x1000>;
+                view-port = <0x170>;
+                drv-vbus;
+        };
+};
+
+&i2c0 {
+	status = "okay";
+};
+
+&i2c1 {
+	status = "okay";
+};
+
+&usb0 {
+        usb-phy = <&usb_phy0>;
+};
+
